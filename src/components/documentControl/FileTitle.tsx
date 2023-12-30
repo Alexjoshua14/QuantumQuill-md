@@ -1,12 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { FC, HTMLAttributes, useRef, useState } from 'react'
+import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import { Input } from '../ui/input'
 import { cn } from '@/lib/utils'
 
-interface FileRenameProps extends HTMLAttributes<HTMLDivElement> {
+interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
   docName: string
+  variant?: 'main' | 'secondary'
+  createdAt?: string
 }
 
 /**
@@ -17,9 +19,14 @@ interface FileRenameProps extends HTMLAttributes<HTMLDivElement> {
  * @param param0 
  * @returns 
  */
-const FileRename: FC<FileRenameProps> = ({ docName, className, ...props }) => {
+const FileTitle: FC<FileTitleProps> = ({ docName, className, variant, createdAt, ...props }) => {
   const [documentName, setDocumentName] = useState<string>(docName)
+  const [fileDate, setFileDate] = useState<string>('01 April 2022')
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    createdAt && setFileDate(createdAt)
+  }, [createdAt])
 
   const handleDocNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDocumentName(e.target.value)
@@ -58,18 +65,22 @@ const FileRename: FC<FileRenameProps> = ({ docName, className, ...props }) => {
         width={15} height={15}
         className="object-contain"
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col items-start">
         <p className="app-body-secondary text-gray-400">
-          Document Name
+          {variant === 'main' ? `Document Name` : fileDate}
         </p>
         <Input
+          onMouseDown={e => { variant === 'secondary' && e.preventDefault() }}
+          // Open on double click
+          onDoubleClick={() => { variant === 'secondary' && inputRef.current?.focus() }}
           id="doc-name"
           value={documentName}
           ref={inputRef}
-          className="min-w-36 md:min-w-52 lg:w-72 max-w-full h-6 px-0 
-                    app-heading text-white font-light rounded-none
-                    border-0 hover:border-b-[1px] 
-                    focus-visible:ring-0 focus-visible:border-b-[1px]"
+          className={`${variant === 'main' ? 'min-w-36 md:min-w-52 lg:w-72 max-w-full' : 'w-full'} 
+                    h-6 px-0 rounded-none cursor-pointer
+                    app-heading text-white font-light ${variant === 'secondary' && 'group-hover:text-orange-500'}
+                    border-0 ${variant === 'main' && 'hover:border-b-[1px]'} 
+                    focus-visible:ring-0 focus-visible:border-b-[1px]`}
           onChange={handleDocNameChange}
           onBlur={handleDocNameBlur}
           onFocus={handleDocNameFocus}
@@ -79,4 +90,4 @@ const FileRename: FC<FileRenameProps> = ({ docName, className, ...props }) => {
   )
 }
 
-export default FileRename
+export default FileTitle
