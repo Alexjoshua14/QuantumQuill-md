@@ -13,6 +13,9 @@ interface MarkdownProps {
 
 /**
  * TODO: Properly render markdown text
+ * TODO: Add key shortcut to show a dropdown of markdown shortcuts
+ * TODO: Integrate some AI/LLM to suggest autocompletions
+ * TODO: Integrate some AI/LLM to help generate templates
  * 
  * @param param0 
  * @returns 
