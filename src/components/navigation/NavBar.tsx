@@ -3,7 +3,7 @@ import SideBar from './SideBar'
 import { Separator } from '../ui/separator'
 import FileRename from '../documentControl/FileRename'
 import FileDelete from '../documentControl/FileDelete'
-import Button from '../Button'
+import FileSave from '../documentControl/FileSave'
 
 interface NavBarProps {
 
@@ -21,11 +21,7 @@ const NavBar: FC<NavBarProps> = ({ }) => {
         </div>
         <div className="min-w-fit h-full flex items-center gap-6">
           <FileDelete />
-          <Button
-            text='Save Changes'
-            icon={{ src: '/assets/icon-save.svg', alt: 'Save Document' }}
-            className='whitespace-nowrap'
-          />
+          <FileSave />
         </div>
       </div>
     </div>
