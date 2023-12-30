@@ -1,6 +1,11 @@
-import { FC, useEffect, useState } from 'react'
+'use client'
+
+import { FC, Suspense, useEffect, useState } from 'react'
 import { remark } from 'remark'
 import Markdown from 'react-markdown'
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
+import { setContent, setMarkdown } from '@/redux/slices/markdownSlice'
+import { useFile } from '@/hooks/useFile'
 
 interface MarkdownProps {
 
@@ -13,23 +18,40 @@ interface MarkdownProps {
  * @returns 
  */
 const MarkdownSection: FC<MarkdownProps> = ({ }) => {
-  // Import sample data from data.json
-  const sampleData = require('@/data/data.json')
-  const sampleMarkdown = sampleData[1].content
+  const [localContent, setLocalContent] = useState<string>('')
 
+  const { content, shouldSave, saveFile } = useFile()
+
+  useEffect(() => {
+    setLocalContent(content)
+
+  }, [content])
+
+  useEffect(() => {
+    if (shouldSave)
+      saveFile({ content: localContent })
+  }, [shouldSave, localContent, saveFile])
+
+  const updateMarkdown = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setLocalContent(e.target.value)
+  }
 
   return (
-    <section className="h-full overflow-y-auto">
+    <section className="h-full overflow-y-auto flex flex-col">
       <div className="w-full h-10 px-2 flex items-center bg-secondary">
         <h2 className="app-heading-secondary">
           Markdown
         </h2>
       </div>
-      <div className="h-full p-2 max-w-full">
-        <pre className="preview-markdown whitespace-pre-wrap">
-          {sampleMarkdown}
-        </pre>
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="h-full p-2 max-w-full">
+          <textarea
+            value={localContent}
+            className="w-full h-full preview-markdown whitespace-pre-wrap resize-none focus:outline-none"
+            onChange={updateMarkdown}
+          />
+        </div>
+      </Suspense>
     </section>
   )
 }
