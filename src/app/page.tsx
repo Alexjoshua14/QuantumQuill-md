@@ -5,7 +5,7 @@ import MarkdownWrapper from '@/components/markdown/MarkdownWrapper'
 
 export default function Home() {
   return (
-    <main className="min-h-dvh py-[72px] bg-orange-500">
+    <main className="min-h-dvh pt-[72px]">
       <MarkdownWrapper />
     </main>
   )

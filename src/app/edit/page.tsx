@@ -7,7 +7,7 @@ interface EditPageProps {
 
 const EditPage: FC<EditPageProps> = ({ }) => {
   return (
-    <main className="flex min-h-screen py-[72px] bg-orange-500">
+    <main className="min-h-dvh pt-[72px]">
       <MarkdownWrapper />
     </main>
   )
