@@ -1,3 +1,4 @@
+import { useFile } from '@/hooks/useFile'
 import { FC, useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 import { remark } from 'remark'
@@ -14,9 +15,9 @@ interface PreviewProps {
  * @returns 
  */
 const Preview: FC<PreviewProps> = ({ }) => {
-  // Import sample data from data.json
-  const sampleData = require('@/data/data.json')
-  const sampleMarkdown = sampleData[1].content
+
+  const { content } = useFile()
+
 
   return (
     <section className="h-full overflow-y-auto">
@@ -26,7 +27,7 @@ const Preview: FC<PreviewProps> = ({ }) => {
         </h2>
       </div>
       <Markdown className="p-4">
-        {sampleMarkdown}
+        {content}
       </Markdown>
     </section>
   )
