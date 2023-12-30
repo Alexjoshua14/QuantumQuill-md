@@ -107,12 +107,18 @@
     @apply text-sm font-bold text-orange-500;
   }
 
+  code {
+    @apply bg-secondary;
+  }
+}
+
+@layer utilities {
   .app-heading {
     @apply text-[15px];
   }
 
   .app-heading-secondary {
-    @apply text-sm tracking-[2px];
+    @apply font-light text-sm tracking-[2px];
   }
 
   .app-body-secondary {
@@ -129,9 +135,5 @@
 
   .preview-markdown {
     @apply text-sm leading-6 font-mono;
-  }
-
-  code {
-    @apply bg-secondary;
   }
 }
