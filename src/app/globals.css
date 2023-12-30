@@ -130,4 +130,8 @@
   .preview-markdown {
     @apply text-sm leading-6 font-mono;
   }
+
+  code {
+    @apply bg-secondary;
+  }
 }
