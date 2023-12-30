@@ -19,7 +19,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ }) => {
 
 
   return (
-    <section className="h-full flex flex-col overflow-y-auto">
+    <section className="h-full overflow-y-auto">
       <div className="w-full h-10 px-2 flex items-center bg-secondary">
         <h2 className="app-heading-secondary">
           Markdown

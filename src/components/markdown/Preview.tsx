@@ -19,8 +19,8 @@ const Preview: FC<PreviewProps> = ({ }) => {
   const sampleMarkdown = sampleData[1].content
 
   return (
-    <section className="h-full flex flex-col overflow-y-auto">
-      <div className="w-full h-10 px-2 flex items-center  bg-secondary">
+    <section className="h-full overflow-y-auto">
+      <div className="w-full h-10 px-2 flex items-center bg-secondary">
         <h2 className="app-heading-secondary">
           Preview
         </h2>
