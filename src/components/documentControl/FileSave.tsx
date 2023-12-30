@@ -2,6 +2,8 @@
 
 import { FC, useEffect, useState } from 'react'
 import Button from '../Button'
+import { useFile } from '@/hooks/useFile'
+import { useScreenSize } from '@/hooks/useScreenSize'
 
 interface FileSaveProps {
 
@@ -10,26 +12,29 @@ interface FileSaveProps {
 const FileSave: FC<FileSaveProps> = ({ }) => {
   const WIDTH_THRESHOLD = 768
   // Get size of screen to render text if screen is big enough
-  const [screenWidth, setScreenWidth] = useState<number>(0)
+  const { screenWidth } = useScreenSize()
 
+  const { initiateFileSave } = useFile()
+
+  // Listen for <cmd> + s to save file
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth)
+    const handleSave = (e: KeyboardEvent) => {
+      if (e.metaKey && e.key === 's') {
+        e.preventDefault()
+        initiateFileSave()
+      }
     }
 
-    handleResize()
-
-    window.addEventListener('resize', handleResize)
-
-    return () => window.removeEventListener('resize', handleResize)
-
-  }, [])
+    window.addEventListener('keydown', handleSave)
+    return () => window.removeEventListener('keydown', handleSave)
+  }, [initiateFileSave])
 
   return (
     <Button
       text={screenWidth > WIDTH_THRESHOLD ? 'Save Changes' : ''}
       icon={{ src: '/assets/icon-save.svg', alt: 'Save Document' }}
       className='whitespace-nowrap'
+      onClick={initiateFileSave}
     />
   )
 }
