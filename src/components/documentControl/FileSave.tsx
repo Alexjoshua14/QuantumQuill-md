@@ -17,6 +17,9 @@ const FileSave: FC<FileSaveProps> = ({ }) => {
   const { initiateFileSave } = useFile()
 
   // Listen for <cmd> + s to save file
+  // TODO: Consider creating new binding for normal <cmd> + s default action
+  //       Maybe even create a throttle of sorts so that a second <cmd> + s 
+  //       in rapid succession allows the default action to occur
   useEffect(() => {
     const handleSave = (e: KeyboardEvent) => {
       if (e.metaKey && e.key === 's') {
