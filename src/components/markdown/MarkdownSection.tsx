@@ -43,7 +43,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef }) => {
 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
-      <div className="w-full h-10 px-2 flex items-center bg-secondary cursor-pointer" onDoubleClick={fullScreen}>
+      <div className="w-full min-h-10 h-10 px-2 flex items-center bg-secondary cursor-pointer" onDoubleClick={fullScreen}>
         <h2 className="app-heading-secondary pointer-events-none select-none">
           Markdown
         </h2>
