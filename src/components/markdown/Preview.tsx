@@ -1,11 +1,13 @@
+import { FC, useEffect, useState, Ref } from 'react'
 import { useFile } from '@/hooks/useFile'
-import { FC, useEffect, useState } from 'react'
+
 import Markdown from 'react-markdown'
+import { ImperativePanelHandle } from 'react-resizable-panels'
 import { remark } from 'remark'
 import html from 'remark-html'
 
 interface PreviewProps {
-
+  parentPanelRef?: ImperativePanelHandle | null
 }
 
 /**
@@ -15,7 +17,6 @@ interface PreviewProps {
  * @returns 
  */
 const Preview: FC<PreviewProps> = ({ }) => {
-
   const { content } = useFile()
 
 

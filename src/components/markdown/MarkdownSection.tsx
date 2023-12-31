@@ -1,14 +1,13 @@
 'use client'
 
-import { FC, Suspense, useEffect, useState } from 'react'
-import { remark } from 'remark'
-import Markdown from 'react-markdown'
+import { FC, Ref, Suspense, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { setContent, setMarkdown } from '@/redux/slices/markdownSlice'
 import { useFile } from '@/hooks/useFile'
+import { ImperativePanelHandle } from 'react-resizable-panels'
 
 interface MarkdownProps {
-
+  parentPanelRef?: ImperativePanelHandle | null
 }
 
 /**
@@ -20,7 +19,7 @@ interface MarkdownProps {
  * @param param0 
  * @returns 
  */
-const MarkdownSection: FC<MarkdownProps> = ({ }) => {
+const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef }) => {
   const [localContent, setLocalContent] = useState<string>('')
 
   const { content, shouldSave, saveFile } = useFile()
@@ -39,9 +38,18 @@ const MarkdownSection: FC<MarkdownProps> = ({ }) => {
     setLocalContent(e.target.value)
   }
 
+  /** Panel size control */
+  const fullScreen = () => {
+    if (!parentPanelRef) return
+
+    console.log("Should be resizing..")
+    parentPanelRef.resize(100)
+  }
+
+
   return (
     <section className="h-full overflow-y-auto flex flex-col">
-      <div className="w-full h-10 px-2 flex items-center bg-secondary">
+      <div className="w-full h-10 px-2 flex items-center bg-secondary cursor-pointer" onDoubleClick={fullScreen}>
         <h2 className="app-heading-secondary">
           Markdown
         </h2>
