@@ -1,13 +1,14 @@
 'use client'
 
-import { FC, Ref, Suspense, useEffect, useState } from 'react'
+import { FC, Ref, Suspense, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { setContent, setMarkdown } from '@/redux/slices/markdownSlice'
 import { useFile } from '@/hooks/useFile'
 import { ImperativePanelHandle } from 'react-resizable-panels'
+import { useImperativePanelHandle } from '@/hooks/useImperativePanelHandle'
 
 interface MarkdownProps {
-  parentPanelRef?: ImperativePanelHandle | null
+  parentPanelRef?: React.RefObject<ImperativePanelHandle>
 }
 
 /**
@@ -15,6 +16,7 @@ interface MarkdownProps {
  * TODO: Add key shortcut to show a dropdown of markdown shortcuts
  * TODO: Integrate some AI/LLM to suggest autocompletions
  * TODO: Integrate some AI/LLM to help generate templates
+ * TODO: Combine preview and markdown title bars into one component
  * 
  * @param param0 
  * @returns 
@@ -23,6 +25,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef }) => {
   const [localContent, setLocalContent] = useState<string>('')
 
   const { content, shouldSave, saveFile } = useFile()
+  const { fullScreen } = useImperativePanelHandle(parentPanelRef ?? null)
 
   useEffect(() => {
     setLocalContent(content)
@@ -38,19 +41,10 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef }) => {
     setLocalContent(e.target.value)
   }
 
-  /** Panel size control */
-  const fullScreen = () => {
-    if (!parentPanelRef) return
-
-    console.log("Should be resizing..")
-    parentPanelRef.resize(100)
-  }
-
-
   return (
     <section className="h-full overflow-y-auto flex flex-col">
       <div className="w-full h-10 px-2 flex items-center bg-secondary cursor-pointer" onDoubleClick={fullScreen}>
-        <h2 className="app-heading-secondary">
+        <h2 className="app-heading-secondary pointer-events-none select-none">
           Markdown
         </h2>
       </div>

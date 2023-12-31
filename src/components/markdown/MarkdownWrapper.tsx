@@ -26,11 +26,11 @@ const MarkdownWrapper: FC<MarkdownWrapperProps> = ({ }) => {
   return (
     <ResizablePanelGroup direction='horizontal' className="min-w-[300px] w-full min-h-[calc(100dvh-72px)] max-h-[calc(100dvh-72px)]">
       <ResizablePanel ref={mdRef} defaultSize={50} className="min-h-full max-h-full">
-        <MarkdownSection parentPanelRef={mdRef.current} />
+        <MarkdownSection parentPanelRef={mdRef} />
       </ResizablePanel>
       <ResizableHandle withHandle className='bg-gray-300' />
       <ResizablePanel ref={previewRef} defaultSize={50} className="min-h-full max-h-full">
-        <Preview parentPanelRef={previewRef.current} />
+        <Preview parentPanelRef={previewRef} />
       </ResizablePanel>
     </ResizablePanelGroup>
   )

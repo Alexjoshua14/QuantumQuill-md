@@ -5,25 +5,28 @@ import Markdown from 'react-markdown'
 import { ImperativePanelHandle } from 'react-resizable-panels'
 import { remark } from 'remark'
 import html from 'remark-html'
+import { useImperativePanelHandle } from '@/hooks/useImperativePanelHandle'
 
 interface PreviewProps {
-  parentPanelRef?: ImperativePanelHandle | null
+  parentPanelRef?: React.RefObject<ImperativePanelHandle>
 }
 
 /**
  * TODO: Properly render markdown html conversion
+ * TODO: Combine preview and markdown title bars into one component
  * 
  * @param param0 
  * @returns 
  */
-const Preview: FC<PreviewProps> = ({ }) => {
+const Preview: FC<PreviewProps> = ({ parentPanelRef }) => {
   const { content } = useFile()
 
+  const { fullScreen } = useImperativePanelHandle(parentPanelRef ?? null)
 
   return (
     <section className="h-full overflow-y-auto">
-      <div className="w-full h-10 px-2 flex items-center bg-secondary">
-        <h2 className="app-heading-secondary">
+      <div className="w-full h-10 px-2 flex items-center bg-secondary cursor-pointer" onDoubleClick={fullScreen}>
+        <h2 className="app-heading-secondary  pointer-events-none select-none">
           Preview
         </h2>
       </div>
