@@ -42,4 +42,10 @@ const FileSave: FC<FileSaveProps> = ({ }) => {
   )
 }
 
+export const PlaceholderFileSave: FC = ({ }) => {
+  return (
+    <Button text={''} icon={{ src: '/assets/icon-save.svg', alt: 'Save Document' }} className='whitespace-nowrap' />
+  )
+}
+
 export default FileSave
