@@ -17,6 +17,7 @@ interface MarkdownProps {
  * TODO: Integrate some AI/LLM to suggest autocompletions
  * TODO: Integrate some AI/LLM to help generate templates
  * TODO: Combine preview and markdown title bars into one component
+ * TODO: Consider adding the rest of emacs keybindings, some are supported by default
  * 
  * @param param0 
  * @returns 
