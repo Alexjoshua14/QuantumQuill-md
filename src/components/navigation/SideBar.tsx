@@ -16,7 +16,7 @@ const SideBar: FC<SideBarProps> = ({ children }) => {
       <SheetTrigger className="h-full min-w-fit px-6 text-white bg-gray-600">
         <Image src="/assets/icon-menu.svg" alt="Menu" width={30} height={18} className="object-contain" />
       </SheetTrigger>
-      <SheetContent side={'left'} className='bg-gray-800 text-white w-64 flex flex-col gap-7'>
+      <SheetContent side={'left'} className='bg-gray-800 text-white w-64 flex flex-col gap-7 border-0'>
         <SheetTitle className="app-heading-secondary text-gray-400">
           {`My Documents`.toUpperCase()}
         </SheetTitle>
