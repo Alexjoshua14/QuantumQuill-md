@@ -19,7 +19,7 @@ interface ThemeToggleProps {
  */
 const ThemeToggle: FC<ThemeToggleProps> = ({ }) => {
   return (
-    <div className="flex gap-2 bg-gray-900 w-fit py-4 px-6">
+    <div className="flex gap-2 w-fit py-4 px-6">
       <Image src="/assets/icon-dark-mode.svg" alt="Dark Mode" width={15} height={15} className="object-contain" />
       <Switch id="theme-toggle" />
       <Image src="/assets/icon-light-mode.svg" alt="Light Mode" width={15} height={15} className="object-contain" />
