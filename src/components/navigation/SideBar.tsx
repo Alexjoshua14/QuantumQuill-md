@@ -1,10 +1,10 @@
 'use client'
 
 import { FC } from 'react'
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '../ui/sheet'
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetTitle, SheetTrigger } from '../ui/sheet'
 import Image from 'next/image'
 import Button from '../Button'
-import FileList from './FileList'
+import ThemeToggle from '../ThemeToggle'
 
 interface SideBarProps {
   children?: React.ReactNode
@@ -20,10 +20,15 @@ const SideBar: FC<SideBarProps> = ({ children }) => {
         <SheetTitle className="app-heading-secondary text-gray-400">
           {`My Documents`.toUpperCase()}
         </SheetTitle>
-        <SheetDescription className="grid grid-flow-row gap-4">
+
+        <div className="grid grid-flow-row gap-4">
           <Button className="w-full grid place-content-center" text="+ New Document" />
           {children}
-        </SheetDescription>
+        </div>
+        <SheetFooter className="absolute bottom-1 left-0">
+          <ThemeToggle />
+        </SheetFooter>
+
       </SheetContent>
     </Sheet>
   )
