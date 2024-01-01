@@ -110,6 +110,21 @@
   code {
     @apply bg-secondary;
   }
+
+  html {
+    scrollbar-color: hsla(0, 0%, 46%, 0.5) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    background-color: transparent;
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 0%, 46%, 0.5);
+    border-radius: 3.5px;
+  }
 }
 
 @layer utilities {
