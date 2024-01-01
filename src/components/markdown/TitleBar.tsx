@@ -21,7 +21,7 @@ const TitleBar: FC<TitleBarProps> = ({ title, toggleShowPreview, className, ...p
           width={24}
           height={24}
           onClick={toggleShowPreview}
-          className="ml-auto object-contain" />
+          className="h-auto ml-auto object-contain" />
       }
     </div>
   )

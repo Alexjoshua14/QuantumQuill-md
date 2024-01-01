@@ -63,7 +63,7 @@ const FileTitle: FC<FileTitleProps> = ({ docName, className, variant, createdAt,
         src="/assets/icon-document.svg"
         alt="Document Icon"
         width={15} height={15}
-        className="object-contain pointer-events-none"
+        className="w-auto object-contain pointer-events-none"
       />
       <div className="flex flex-col items-start">
         <p className={`app-body-secondary text-gray-400 ${variant === 'main' && 'cursor-default select-none'}`}>
