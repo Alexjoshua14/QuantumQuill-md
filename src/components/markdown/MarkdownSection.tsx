@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, Ref, Suspense, useEffect, useRef, useState } from 'react'
+import { FC, Ref, Suspense, use, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { setContent, setMarkdown } from '@/redux/slices/markdownSlice'
 import { useFile } from '@/hooks/useFile'
@@ -25,9 +25,9 @@ interface MarkdownProps {
  * @returns 
  */
 const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview }) => {
-  const [localContent, setLocalContent] = useState<string>('')
 
   const { content, shouldSave, saveFile } = useFile()
+  const [localContent, setLocalContent] = useState<string>('')
   const { fullScreen } = useImperativePanelHandle(parentPanelRef ?? null)
 
   useEffect(() => {
@@ -36,12 +36,14 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
   }, [content])
 
   useEffect(() => {
-    if (shouldSave)
+    if (shouldSave) {
       saveFile({ content: localContent })
+    }
   }, [shouldSave, localContent, saveFile])
 
   const updateMarkdown = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setLocalContent(e.target.value)
+    // console.log("Local content updated")
   }
 
   return (

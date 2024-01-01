@@ -37,8 +37,9 @@ export const markdownSlice = createSlice({
     setMarkdown: (state, action: PayloadAction<Partial<MarkdownState>>) => {
       if (action.payload.filename)
         state.filename = action.payload.filename
-      if (action.payload.content)
+      if (action.payload.content) {
         state.content = action.payload.content
+      }
     },
     setFilename: (state, action: PayloadAction<string>) => {
       state.filename = action.payload
