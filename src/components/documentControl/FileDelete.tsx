@@ -33,7 +33,7 @@ const FileDelete: FC<FileDeleteProps> = ({ }) => {
   const { filename } = useAppSelector(state => state.markdown)
 
   return (
-    <AlertDialog defaultOpen>
+    <AlertDialog>
       <AlertDialogTrigger>
         <Image src='/assets/icon-delete.svg' width={18} height={20} alt="Delete Document" className='object-contain' />
       </AlertDialogTrigger>
