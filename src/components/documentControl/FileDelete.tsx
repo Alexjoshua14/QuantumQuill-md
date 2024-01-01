@@ -2,16 +2,58 @@
 
 import Image from 'next/image'
 import { FC } from 'react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '../ui/alert-dialog'
+import { useAppSelector } from '@/hooks/reduxHooks'
 
 interface FileDeleteProps {
 
 }
 
+/**
+ * 
+ * TODO: Change font to Roboto Serif
+ * @param param0 
+ * @returns 
+ */
 const FileDelete: FC<FileDeleteProps> = ({ }) => {
+  const { filename } = useAppSelector(state => state.markdown)
+
   return (
-    <button>
-      <Image src='/assets/icon-delete.svg' width={18} height={20} alt="Delete Document" className='object-contain' />
-    </button>
+    <AlertDialog defaultOpen>
+      <AlertDialogTrigger>
+        <Image src='/assets/icon-delete.svg' width={18} height={20} alt="Delete Document" className='object-contain' />
+      </AlertDialogTrigger>
+
+      <AlertDialogContent className="max-w-80">
+        <AlertDialogHeader className="text-left">
+          <AlertDialogTitle className="text-xl text-gray-600">
+            {`Delete this document?`}
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-gray-400">
+            {`Are you sure you want to delete the '${filename}' document and its contents?`}
+            <br />
+            {`This action cannot be reversed.`}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogAction className='w-full bg-orange-500 font-light text-[15px]'>
+            {`Confirm & Delete`}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+
+    </AlertDialog>
   )
 }
 
