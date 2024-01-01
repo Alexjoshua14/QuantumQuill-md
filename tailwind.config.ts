@@ -43,11 +43,19 @@ const config = {
         serif: ['var(--font-roboto-slab)'],
         mono: ['var(--font-roboto-mono)'],
       },
+      textColor: {
+        DEFAULT: "hsl(var(--foreground))",
+        primary: "hsl(var(--foreground))",
+        secondary: "hsl(var(--foreground-secondary))",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          secondary: "hsl(var(--background-secondary))",
+        },
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -76,7 +84,7 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

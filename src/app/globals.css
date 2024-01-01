@@ -5,7 +5,9 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --background-secondary: 0 0% 96%;
     --foreground: 216 9% 23%;
+    --foreground-secondary: 213 4% 51%;
 
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
@@ -37,7 +39,9 @@
 
   .dark {
     --background: 225 9% 9%;
+    --background-secondary: 220 7% 18%;
     --foreground: 0 0% 100%;
+    --foreground-secondary: 222 9% 78%;
 
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
@@ -76,7 +80,7 @@
   } */
 
   * {
-    @apply border-border;
+    @apply border-border text-primary;
   }
 
   body {
@@ -128,6 +132,26 @@
 }
 
 @layer utilities {
+  .preview ul li::before {
+    @apply text-orange-500 ml-4 w-4 mr-4;
+    content: "\2022";
+  }
+
+  .preview ol li::before {
+    @apply ml-4 w-4 mr-4;
+    content: counter(list-item) ".";
+  }
+
+  blockquote {
+    @apply border-l-4 border-orange-500 p-4 rounded bg-background-secondary preview-bold;
+  }
+
+  .preview pre {
+    @apply p-4 rounded bg-background-secondary;
+  }
+}
+
+@layer utilities {
   .app-heading {
     @apply text-[15px] font-sans;
   }
@@ -150,5 +174,13 @@
 
   .preview-markdown {
     @apply text-sm leading-6 font-mono;
+  }
+
+  .preview a {
+    @apply underline;
+  }
+
+  .preview ol {
+    @apply text-secondary;
   }
 }
