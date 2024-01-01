@@ -10,24 +10,24 @@ import TitleBar from './TitleBar'
 
 interface PreviewProps {
   parentPanelRef?: React.RefObject<ImperativePanelHandle>
+  toggleShowPreview?: () => void
 }
 
 /**
  * TODO: Properly render markdown html conversion
- * TODO: Combine preview and markdown title bars into one component
  * 
  * @param param0 
  * @returns 
  */
-const Preview: FC<PreviewProps> = ({ parentPanelRef }) => {
+const Preview: FC<PreviewProps> = ({ parentPanelRef, toggleShowPreview }) => {
   const { content } = useFile()
 
   const { fullScreen } = useImperativePanelHandle(parentPanelRef ?? null)
 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
-      <TitleBar title="Preview" onDoubleClick={fullScreen} />
-      <Markdown className="p-4">
+      <TitleBar title="Preview" onDoubleClick={fullScreen} toggleShowPreview={toggleShowPreview} />
+      <Markdown className="m-2 h-full overflow-y-auto">
         {content}
       </Markdown>
     </section>
