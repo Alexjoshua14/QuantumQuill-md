@@ -28,8 +28,8 @@ const NavBar: FC<NavBarProps> = ({ }) => {
       </SideBar>
       <div className="w-full h-full py-4 flex items-center justify-between">
         <div className="h-full flex items-center gap-6">
-          <h4 className="text-white font-normal tracking-[0.2em]">QuantumQuill</h4>
-          <Separator orientation='vertical' />
+          <h4 className="hidden sm:block text-white font-normal tracking-[0.2em]">QuantumQuill</h4>
+          <Separator orientation='vertical' className='hidden sm:block' />
           <FileTitle docName='welcome.md' variant='main' />
         </div>
         <div className="min-w-fit h-full flex items-center gap-6">
