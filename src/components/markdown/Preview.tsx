@@ -6,6 +6,7 @@ import { ImperativePanelHandle } from 'react-resizable-panels'
 import { remark } from 'remark'
 import html from 'remark-html'
 import { useImperativePanelHandle } from '@/hooks/useImperativePanelHandle'
+import TitleBar from './TitleBar'
 
 interface PreviewProps {
   parentPanelRef?: React.RefObject<ImperativePanelHandle>
@@ -25,11 +26,7 @@ const Preview: FC<PreviewProps> = ({ parentPanelRef }) => {
 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
-      <div className="w-full min-h-10 h-10 px-2 flex items-center bg-secondary cursor-pointer" onDoubleClick={fullScreen}>
-        <h2 className="app-heading-secondary  pointer-events-none select-none">
-          Preview
-        </h2>
-      </div>
+      <TitleBar title="Preview" onDoubleClick={fullScreen} />
       <Markdown className="p-4">
         {content}
       </Markdown>

@@ -6,6 +6,7 @@ import { setContent, setMarkdown } from '@/redux/slices/markdownSlice'
 import { useFile } from '@/hooks/useFile'
 import { ImperativePanelHandle } from 'react-resizable-panels'
 import { useImperativePanelHandle } from '@/hooks/useImperativePanelHandle'
+import TitleBar from './TitleBar'
 
 interface MarkdownProps {
   parentPanelRef?: React.RefObject<ImperativePanelHandle>
@@ -44,11 +45,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef }) => {
 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
-      <div className="w-full min-h-10 h-10 px-2 flex items-center bg-secondary cursor-pointer" onDoubleClick={fullScreen}>
-        <h2 className="app-heading-secondary pointer-events-none select-none">
-          Markdown
-        </h2>
-      </div>
+      <TitleBar title="Markdown" onDoubleClick={fullScreen} />
       <Suspense fallback={<div>Loading...</div>}>
         <div className="h-full p-2 max-w-full">
           <textarea
