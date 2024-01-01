@@ -5,6 +5,7 @@ import { FC } from 'react'
 import {
   AlertDialog,
   AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -23,6 +24,8 @@ interface FileDeleteProps {
 /**
  * 
  * TODO: Change font to Roboto Serif
+ * TODO: Connect functionality to delete file
+ * 
  * @param param0 
  * @returns 
  */
@@ -47,6 +50,9 @@ const FileDelete: FC<FileDeleteProps> = ({ }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
+          <AlertDialogCancel className="font-light text-[15px]">
+            {`Cancel`}
+          </AlertDialogCancel>
           <AlertDialogAction className='w-full bg-orange-500 font-light text-[15px]'>
             {`Confirm & Delete`}
           </AlertDialogAction>
