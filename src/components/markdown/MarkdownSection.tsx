@@ -47,7 +47,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
       <TitleBar title="Markdown" onDoubleClick={fullScreen} toggleShowPreview={toggleShowPreview} />
-      <div className="h-full p-2 max-w-full">
+      <div className="h-full p-6 max-w-full">
         <Suspense fallback={<div>Loading...</div>}>
           <textarea
             value={localContent}

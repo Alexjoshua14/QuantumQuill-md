@@ -129,11 +129,11 @@
 
 @layer utilities {
   .app-heading {
-    @apply text-[15px];
+    @apply text-[15px] font-sans;
   }
 
   .app-heading-secondary {
-    @apply font-light text-sm tracking-[2px];
+    @apply text-sm tracking-[2px] font-sans font-medium text-gray-400;
   }
 
   .app-body-secondary {
