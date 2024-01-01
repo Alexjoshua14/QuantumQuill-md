@@ -38,6 +38,11 @@ const config = {
       black: '#000000',
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-roboto-regular)'],
+        serif: ['var(--font-roboto-slab)'],
+        mono: ['var(--font-roboto-mono)'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
