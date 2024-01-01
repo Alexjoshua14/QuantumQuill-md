@@ -34,7 +34,8 @@ const config = {
       orange: {
         300: '#F39765',
         500: '#E46643'
-      }
+      },
+      black: '#000000',
     },
     extend: {
       colors: {
