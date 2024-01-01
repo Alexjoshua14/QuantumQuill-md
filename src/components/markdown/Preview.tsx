@@ -7,6 +7,10 @@ import { remark } from 'remark'
 import html from 'remark-html'
 import { useImperativePanelHandle } from '@/hooks/useImperativePanelHandle'
 import TitleBar from './TitleBar'
+import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '../ui/context-menu'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkHtml from 'remark-html'
 
 interface PreviewProps {
   parentPanelRef?: React.RefObject<ImperativePanelHandle>
@@ -24,12 +28,54 @@ const Preview: FC<PreviewProps> = ({ parentPanelRef, toggleShowPreview }) => {
 
   const { fullScreen } = useImperativePanelHandle(parentPanelRef ?? null)
 
+  /** Allow preview to be either rendered html or straight html */
+  const [rendered, setRendered] = useState<boolean>(true)
+  const [html, setHtml] = useState<string>("")
+
+  useEffect(() => {
+    const processMD = async () => {
+      if (!content) return
+      const result = await unified()
+        .use(remarkParse)
+        .use(remarkHtml)
+        .process(content)
+
+      setHtml(String(result))
+    }
+
+    processMD()
+
+  }, [content])
+
+  const toggleRendered = () => {
+    // Using a timeout to allow the context menu to close before switching text
+    setTimeout(() => {
+      setRendered(prev => !prev)
+    }, 100)
+  }
+
+
   return (
     <section className="h-full overflow-y-auto flex flex-col">
-      <TitleBar title="Preview" onDoubleClick={fullScreen} toggleShowPreview={toggleShowPreview} />
-      <Markdown className="m-2 p-4 h-full overflow-y-auto preview flex flex-col gap-5">
-        {content}
-      </Markdown>
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <TitleBar title="Preview" onDoubleClick={fullScreen} toggleShowPreview={toggleShowPreview} />
+        </ContextMenuTrigger>
+        <ContextMenuContent className="w-64">
+          <ContextMenuCheckboxItem onClick={toggleRendered} checked={!rendered}>
+            {`Show raw HTML`}
+          </ContextMenuCheckboxItem>
+        </ContextMenuContent>
+      </ContextMenu>
+      {rendered ?
+        <Markdown className="m-2 p-4 h-full overflow-y-auto preview flex flex-col gap-5" >
+          {content}
+        </Markdown>
+        :
+        <pre className="m-2 p-4 h-full overflow-y-auto preview flex flex-col gap-5">
+          {html}
+        </pre>
+      }
     </section>
   )
 }
