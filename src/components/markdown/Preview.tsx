@@ -1,16 +1,15 @@
-import { FC, useEffect, useState, Ref } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useFile } from '@/hooks/useFile'
 
 import Markdown from 'react-markdown'
 import { ImperativePanelHandle } from 'react-resizable-panels'
-import { remark } from 'remark'
-import html from 'remark-html'
 import { useImperativePanelHandle } from '@/hooks/useImperativePanelHandle'
 import TitleBar from './TitleBar'
 import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '../ui/context-menu'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkHtml from 'remark-html'
+import remarkGfm from 'remark-gfm'
 
 interface PreviewProps {
   parentPanelRef?: React.RefObject<ImperativePanelHandle>
@@ -68,7 +67,7 @@ const Preview: FC<PreviewProps> = ({ parentPanelRef, toggleShowPreview }) => {
         </ContextMenuContent>
       </ContextMenu>
       {rendered ?
-        <Markdown className="m-2 p-4 h-full overflow-y-auto preview flex flex-col gap-5" >
+        <Markdown remarkPlugins={[remarkGfm]} className="m-2 p-4 h-full overflow-y-auto preview flex flex-col gap-5">
           {content}
         </Markdown>
         :
