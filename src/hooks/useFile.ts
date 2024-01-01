@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from './reduxHooks';
 import { setContent, setFilename, setMarkdown, setShouldSave } from '@/redux/slices/markdownSlice';
 
@@ -10,14 +10,12 @@ export const useFile = () => {
 
   const dispatch = useAppDispatch();
 
-  const initiateFileSave = () => {
+  const initiateFileSave = useCallback(() => {
     dispatch(setShouldSave(true))
-  }
+  }, [dispatch])
 
   // TODO: Actually save the file
-  const saveFile = ({filename, content}: {filename?: string, content?: string}) => {
-    console.log("Saving file...")
-
+  const saveFile = useCallback(({filename, content}: {filename?: string, content?: string}) => {
     if (filename && content) {
       dispatch(setMarkdown({ filename, content }))
     } else if (content) {
@@ -27,12 +25,13 @@ export const useFile = () => {
     }
 
     dispatch(setShouldSave(false))
-  }
+
+  }, [dispatch])
 
   // TODO: Actually delete the file
-  const deleteFile = () => {
+  const deleteFile = useCallback(() => {
     dispatch(setMarkdown({ filename: '', content: '' }))
-  }
+  }, [dispatch])
 
 
   return { filename, content, shouldSave, initiateFileSave, saveFile, deleteFile };
