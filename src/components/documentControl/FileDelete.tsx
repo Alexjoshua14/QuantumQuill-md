@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger
 } from '../ui/alert-dialog'
 import { useAppSelector } from '@/hooks/reduxHooks'
+import { useFile } from '@/hooks/useFile'
 
 interface FileDeleteProps {
 
@@ -30,7 +31,7 @@ interface FileDeleteProps {
  * @returns 
  */
 const FileDelete: FC<FileDeleteProps> = ({ }) => {
-  const { filename } = useAppSelector(state => state.markdown)
+  const { filename, deleteFile } = useFile()
 
   return (
     <AlertDialog>
@@ -53,7 +54,7 @@ const FileDelete: FC<FileDeleteProps> = ({ }) => {
           <AlertDialogCancel className="font-light text-[15px]">
             {`Cancel`}
           </AlertDialogCancel>
-          <AlertDialogAction className='w-full bg-orange-500 font-light text-[15px]'>
+          <AlertDialogAction onClick={deleteFile} className='w-full bg-orange-500 font-light text-[15px]'>
             {`Confirm & Delete`}
           </AlertDialogAction>
         </AlertDialogFooter>
