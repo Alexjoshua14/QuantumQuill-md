@@ -27,7 +27,7 @@ const Preview: FC<PreviewProps> = ({ parentPanelRef, toggleShowPreview }) => {
   return (
     <section className="h-full overflow-y-auto flex flex-col">
       <TitleBar title="Preview" onDoubleClick={fullScreen} toggleShowPreview={toggleShowPreview} />
-      <Markdown className="m-2 h-full overflow-y-auto">
+      <Markdown className="m-2 h-full overflow-y-auto preview">
         {content}
       </Markdown>
     </section>
