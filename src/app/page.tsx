@@ -5,7 +5,7 @@ import MarkdownWrapper from '@/components/markdown/MarkdownWrapper'
 
 export default function Home() {
   return (
-    <main className="min-h-dvh pt-[72px]">
+    <main className="h-dvh pt-[72px]">
       <MarkdownWrapper />
     </main>
   )
