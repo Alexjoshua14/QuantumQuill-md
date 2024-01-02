@@ -1,4 +1,4 @@
-import MarkdownWrapper from '@/components/markdown/MarkdownWrapper'
+import MarkdownWrapper from '@/components/markdown/EditorWrapper'
 import { FC } from 'react'
 
 interface EditPageProps {

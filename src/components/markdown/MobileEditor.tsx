@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react'
 import MarkdownSection from './MarkdownSection'
-import Preview from './Preview'
+import PreviewSection from './PreviewSection'
 
 
 interface MobileEditorProps {
@@ -18,7 +18,7 @@ const MobileEditor: FC<MobileEditorProps> = ({ }) => {
 
   return (
     <div className="sm:hidden w-full h-full flex flex-col">
-      {showPreview ? <Preview toggleShowPreview={toggleShowPreview} /> : <MarkdownSection toggleShowPreview={toggleShowPreview} />}
+      {showPreview ? <PreviewSection toggleShowPreview={toggleShowPreview} /> : <MarkdownSection toggleShowPreview={toggleShowPreview} />}
     </div>
   )
 }

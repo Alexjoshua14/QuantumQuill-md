@@ -2,7 +2,7 @@ import { FC, useRef } from 'react'
 import { ImperativePanelHandle } from 'react-resizable-panels'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../ui/resizable'
 import MarkdownSection from './MarkdownSection'
-import Preview from './Preview'
+import PreviewSection from './PreviewSection'
 
 
 interface DesktopEditorProps {
@@ -18,9 +18,9 @@ const DesktopEditor: FC<DesktopEditorProps> = ({ }) => {
       <ResizablePanel ref={mdRef} defaultSize={50} className="min-h-full max-h-full">
         <MarkdownSection parentPanelRef={mdRef} />
       </ResizablePanel>
-      <ResizableHandle withHandle className='bg-gray-300' />
+      <ResizableHandle withHandle className='bg-border' />
       <ResizablePanel ref={previewRef} defaultSize={50} className="min-h-full max-h-full">
-        <Preview parentPanelRef={previewRef} />
+        <PreviewSection parentPanelRef={previewRef} />
       </ResizablePanel>
     </ResizablePanelGroup>
   )

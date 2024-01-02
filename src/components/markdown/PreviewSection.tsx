@@ -11,7 +11,7 @@ import remarkParse from 'remark-parse'
 import remarkHtml from 'remark-html'
 import remarkGfm from 'remark-gfm'
 
-interface PreviewProps {
+interface PreviewSectionProps {
   parentPanelRef?: React.RefObject<ImperativePanelHandle>
   toggleShowPreview?: () => void
 }
@@ -22,7 +22,7 @@ interface PreviewProps {
  * @param param0 
  * @returns 
  */
-const Preview: FC<PreviewProps> = ({ parentPanelRef, toggleShowPreview }) => {
+const PreviewSection: FC<PreviewSectionProps> = ({ parentPanelRef, toggleShowPreview }) => {
   const { content } = useFile()
 
   const { fullScreen } = useImperativePanelHandle(parentPanelRef ?? null)
@@ -79,4 +79,4 @@ const Preview: FC<PreviewProps> = ({ parentPanelRef, toggleShowPreview }) => {
   )
 }
 
-export default Preview
+export default PreviewSection

@@ -5,7 +5,7 @@ import { useScreenSize } from '@/hooks/useScreenSize'
 import DesktopEditor from './DesktopEditor'
 import MobileEditor from './MobileEditor'
 
-interface MarkdownWrapperProps {
+interface EditorWrapperProps {
 
 }
 
@@ -15,7 +15,7 @@ interface MarkdownWrapperProps {
  * @param param0 
  * @returns 
  */
-const MarkdownWrapper: FC<MarkdownWrapperProps> = ({ }) => {
+const EditorWrapper: FC<EditorWrapperProps> = ({ }) => {
   const { screenWidth } = useScreenSize()
 
   return (screenWidth > 480) ?
@@ -23,4 +23,4 @@ const MarkdownWrapper: FC<MarkdownWrapperProps> = ({ }) => {
     : <MobileEditor />
 }
 
-export default MarkdownWrapper
+export default EditorWrapper
