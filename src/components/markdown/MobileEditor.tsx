@@ -5,11 +5,11 @@ import MarkdownSection from './MarkdownSection'
 import Preview from './Preview'
 
 
-interface MobileMarkdownEditorProps {
+interface MobileEditorProps {
 
 }
 
-const MobileMarkdownEditor: FC<MobileMarkdownEditorProps> = ({ }) => {
+const MobileEditor: FC<MobileEditorProps> = ({ }) => {
   const [showPreview, setShowPreview] = useState<boolean>(false)
 
   const toggleShowPreview = () => {
@@ -23,4 +23,4 @@ const MobileMarkdownEditor: FC<MobileMarkdownEditorProps> = ({ }) => {
   )
 }
 
-export default MobileMarkdownEditor
+export default MobileEditor

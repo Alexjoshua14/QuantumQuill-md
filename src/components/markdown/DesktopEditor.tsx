@@ -5,11 +5,11 @@ import MarkdownSection from './MarkdownSection'
 import Preview from './Preview'
 
 
-interface DesktopMarkdownEditorProps {
+interface DesktopEditorProps {
 
 }
 
-const DesktopMarkdownEditor: FC<DesktopMarkdownEditorProps> = ({ }) => {
+const DesktopEditor: FC<DesktopEditorProps> = ({ }) => {
   const mdRef = useRef<ImperativePanelHandle>(null)
   const previewRef = useRef<ImperativePanelHandle>(null)
 
@@ -26,4 +26,4 @@ const DesktopMarkdownEditor: FC<DesktopMarkdownEditorProps> = ({ }) => {
   )
 }
 
-export default DesktopMarkdownEditor
+export default DesktopEditor

@@ -1,13 +1,9 @@
 'use client'
 
-import { FC, useRef, useState } from 'react'
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../ui/resizable'
-import MarkdownSection from './MarkdownSection'
-import Preview from './Preview'
-import { ImperativePanelHandle } from 'react-resizable-panels'
+import { FC } from 'react'
 import { useScreenSize } from '@/hooks/useScreenSize'
-import DesktopMarkdownEditor from './DesktopMarkdownEditor'
-import MobileMarkdownEditor from './MobileMarkdownEditor'
+import DesktopEditor from './DesktopEditor'
+import MobileEditor from './MobileEditor'
 
 interface MarkdownWrapperProps {
 
@@ -23,8 +19,8 @@ const MarkdownWrapper: FC<MarkdownWrapperProps> = ({ }) => {
   const { screenWidth } = useScreenSize()
 
   return (screenWidth > 480) ?
-    <DesktopMarkdownEditor />
-    : <MobileMarkdownEditor />
+    <DesktopEditor />
+    : <MobileEditor />
 }
 
 export default MarkdownWrapper
