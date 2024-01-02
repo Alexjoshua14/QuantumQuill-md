@@ -88,27 +88,27 @@
   }
 
   h1 {
-    @apply text-[32px] leading-10 font-bold font-serif;
+    @apply text-[32px] leading-10 font-bold font-serif text-primary;
   }
 
   h2 {
-    @apply text-[28px] leading-9 font-light font-serif;
+    @apply text-[28px] leading-9 font-light font-serif text-primary;
   }
 
   h3 {
-    @apply text-2xl font-bold font-serif;
+    @apply text-2xl font-bold font-serif text-primary;
   }
 
   h4 {
-    @apply text-xl font-bold font-serif;
+    @apply text-xl font-bold font-serif text-primary;
   }
 
   h5 {
-    @apply text-base font-bold font-serif;
+    @apply text-base font-bold font-serif text-primary;
   }
 
   h6 {
-    @apply text-sm font-bold text-orange-500 font-serif;
+    @apply text-sm font-bold text-orange-500 font-serif text-primary;
   }
 
   code {
@@ -168,6 +168,11 @@
     @apply text-sm leading-6 font-serif;
   }
 
+  .preview p,
+  .preview li {
+    @apply text-secondary;
+  }
+
   .preview-bold {
     @apply text-sm leading-6 font-bold font-serif;
   }
@@ -178,9 +183,5 @@
 
   .preview a {
     @apply underline;
-  }
-
-  .preview ol {
-    @apply text-secondary;
   }
 }
