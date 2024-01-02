@@ -1,4 +1,5 @@
-import MarkdownWrapper from '@/components/markdown/EditorWrapper'
+
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
 
 interface EditPageProps {
@@ -6,9 +7,11 @@ interface EditPageProps {
 }
 
 const EditPage: FC<EditPageProps> = ({ }) => {
+  const EditorWrapper = dynamic(() => import('@/components/markdown/EditorWrapper'), { ssr: false })
+
   return (
     <main className="min-h-dvh pt-[72px]">
-      <MarkdownWrapper />
+      <EditorWrapper />
     </main>
   )
 }
