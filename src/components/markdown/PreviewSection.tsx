@@ -71,7 +71,7 @@ const PreviewSection: FC<PreviewSectionProps> = ({ parentPanelRef, toggleShowPre
           {content}
         </Markdown>
         :
-        <pre className="m-2 p-4 h-full overflow-y-auto preview flex flex-col gap-5">
+        <pre className="m-2 p-4 h-full overflow-y-auto preview flex flex-col gap-5 whitespace-pre-wrap">
           {html}
         </pre>
       }

@@ -20,6 +20,7 @@ interface MarkdownProps {
  * TODO: Integrate some AI/LLM to help generate templates
  * TODO: Consider adding the rest of emacs keybindings, some are supported by default
  * TODO: Consider moving localContent to localStorage to persist data even on accidental refresh/close
+ * TODO: Refine act of zooming on click of textarea
  * 
  * @param param0 
  * @returns 
@@ -49,11 +50,11 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
       <TitleBar title="Markdown" onDoubleClick={fullScreen} toggleShowPreview={toggleShowPreview} />
-      <div className="h-full p-6 max-w-full">
+      <div className="h-full max-w-full p-2">
         <Suspense fallback={<div>Loading...</div>}>
           <textarea
             value={localContent}
-            className="w-full h-full preview-markdown whitespace-pre-wrap resize-none focus:outline-none"
+            className="w-full h-full p-4 preview-markdown whitespace-pre-wrap resize-none focus:outline-none "
             onChange={updateMarkdown}
           />
         </Suspense>
