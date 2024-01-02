@@ -54,7 +54,7 @@ const FileDelete: FC<FileDeleteProps> = ({ }) => {
           <AlertDialogCancel className="font-light text-[15px]">
             {`Cancel`}
           </AlertDialogCancel>
-          <AlertDialogAction onClick={deleteFile} className='w-full bg-orange-500 font-light text-[15px]'>
+          <AlertDialogAction onClick={deleteFile} className='w-full font-light text-[15px] text-white bg-orange-500 hover:bg-orange-300'>
             {`Confirm & Delete`}
           </AlertDialogAction>
         </AlertDialogFooter>
