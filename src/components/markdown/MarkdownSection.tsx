@@ -61,6 +61,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
    * TODO: Handle user deleting multiple characters using shift/option/etc + arrow keys
    * TODO: Handle user clicking on textarea to move cursor, this should just reset the command
    * TODO: Handle user using undo/redo, this should just reset the command for now
+   * TODO: Create dictionary of commands and their respective functions
    * 
    */
   const checkForShortcuts = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
