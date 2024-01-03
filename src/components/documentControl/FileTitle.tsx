@@ -1,9 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
+import { FC, HTMLAttributes, use, useEffect, useRef, useState } from 'react'
 import { Input } from '../ui/input'
 import { cn } from '@/lib/utils'
+import { useAppSelector } from '@/hooks/reduxHooks'
+import { useFile } from '@/hooks/useFile'
 
 interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
   docName: string
@@ -19,14 +21,28 @@ interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
  * @param param0 
  * @returns 
  */
-const FileTitle: FC<FileTitleProps> = ({ docName, className, variant, createdAt, ...props }) => {
-  const [documentName, setDocumentName] = useState<string>(docName)
+const FileTitle: FC<FileTitleProps> = ({ className, variant, createdAt, ...props }) => {
+  const { filename, saveFile } = useFile()
+
+  const [documentName, setDocumentName] = useState<string>(filename)
   const [fileDate, setFileDate] = useState<string>('01 April 2022')
+  const [isEditing, setIsEditing] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     createdAt && setFileDate(createdAt)
   }, [createdAt])
+
+  useEffect(() => {
+    if (isEditing) return
+
+    setDocumentName(filename)
+  }, [isEditing, filename])
+
+  const syncDocumentName = () => {
+    saveFile({ filename: documentName })
+    setIsEditing(false)
+  }
 
   const handleDocNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDocumentName(e.target.value)
@@ -36,7 +52,7 @@ const FileTitle: FC<FileTitleProps> = ({ docName, className, variant, createdAt,
     //setDocumentName(e.target.value)
     try {
       if (!inputRef.current) return
-
+      syncDocumentName()
       inputRef.current.selectionStart = 0
     } catch (err) {
       console.error(err)
@@ -47,6 +63,7 @@ const FileTitle: FC<FileTitleProps> = ({ docName, className, variant, createdAt,
     try {
       if (!inputRef.current) return
 
+      setIsEditing(true)
       const fileExtensionLength = (inputRef.current.value.split('.').pop()?.length ?? -1) + 1
 
       inputRef.current.selectionStart = 0
