@@ -6,6 +6,7 @@ import { Input } from '../ui/input'
 import { cn } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { useFile } from '@/hooks/useFile'
+import { useSession } from 'next-auth/react'
 
 interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
   docName: string
@@ -21,10 +22,11 @@ interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
  * @param param0 
  * @returns 
  */
-const FileTitle: FC<FileTitleProps> = ({ className, variant, createdAt, ...props }) => {
-  const { filename, saveFile } = useFile()
+const FileTitle: FC<FileTitleProps> = ({ className, docName, content, variant, createdAt, ...props }) => {
+  const { status } = useSession()
+  const { filename, saveFile, openFile } = useFile(docName)
 
-  const [documentName, setDocumentName] = useState<string>(filename)
+  const [documentName, setDocumentName] = useState<string>(docName)
   const [fileDate, setFileDate] = useState<string>('01 April 2022')
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -33,14 +35,23 @@ const FileTitle: FC<FileTitleProps> = ({ className, variant, createdAt, ...props
     createdAt && setFileDate(createdAt)
   }, [createdAt])
 
-  useEffect(() => {
-    if (isEditing) return
+  // useEffect(() => {
+  //   if (isEditing) return
 
-    setDocumentName(filename)
-  }, [isEditing, filename])
+  //   // setDocumentName(filename)
+  // }, [isEditing, filename])
 
   const syncDocumentName = () => {
-    saveFile({ filename: documentName })
+    if (variant === 'main')
+      saveFile({ filename: documentName })
+    else
+      openFile(documentName, content)
+
+    // Update database
+    if (status === 'authenticated') {
+      console.log('Would be updating file in database here')
+    }
+
     setIsEditing(false)
   }
 
@@ -75,7 +86,10 @@ const FileTitle: FC<FileTitleProps> = ({ className, variant, createdAt, ...props
   }
 
   return (
-    <div className={cn("h-full flex items-center gap-4 w-fit", className)} {...props}>
+    <div
+      className={cn("h-full flex items-center gap-4 w-fit", className)} {...props}
+      onClick={variant === 'secondary' ? () => openFile(docName) : undefined}
+    >
       <Image
         src="/assets/icon-document.svg"
         alt="Document Icon"

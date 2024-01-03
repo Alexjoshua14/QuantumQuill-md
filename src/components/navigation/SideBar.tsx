@@ -1,16 +1,21 @@
 'use client'
 
 import { FC } from 'react'
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetTitle, SheetTrigger } from '../ui/sheet'
+import { Sheet, SheetContent, SheetFooter, SheetTitle, SheetTrigger } from '../ui/sheet'
 import Image from 'next/image'
 import Button from '../Button'
 import ThemeToggle from '../ThemeToggle'
+import { SignInButton, SignOutButton } from '../oauth/OAuthButtons'
+import { useSession } from 'next-auth/react'
 
 interface SideBarProps {
+  signedIn?: boolean
   children?: React.ReactNode
 }
 
-const SideBar: FC<SideBarProps> = ({ children }) => {
+const SideBar: FC<SideBarProps> = ({ signedIn, children }) => {
+  const { status } = useSession()
+
   return (
     <Sheet>
       <SheetTrigger className="h-full min-w-fit px-6 text-white bg-gray-600 hover:bg-orange-500 transition-colors">
@@ -21,9 +26,16 @@ const SideBar: FC<SideBarProps> = ({ children }) => {
           {`My Documents`.toUpperCase()}
         </SheetTitle>
 
-        <div className="grid grid-flow-row gap-4">
-          <Button className="w-full grid place-content-center" text="+ New Document" />
-          {children}
+        <div className="h-full pb-10 flex flex-col justify-between">
+          <div className="grid grid-flow-row gap-4">
+            {status === 'unauthenticated' && <SignInButton />}
+            <Button className="w-full grid place-content-center" text="+ New Document" />
+            {children}
+
+          </div>
+          <div className="w-full flex">
+            {status === 'authenticated' && <SignOutButton className='w-full' />}
+          </div>
         </div>
         <SheetFooter className="absolute bottom-1 left-0">
           <ThemeToggle />
