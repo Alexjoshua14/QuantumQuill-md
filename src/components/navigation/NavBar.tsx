@@ -6,12 +6,15 @@ import FileDelete from '../documentControl/FileDelete'
 import { PlaceholderFileSave } from '../documentControl/FileSave'
 import FileList from './FileList'
 import dynamic from 'next/dynamic'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 
 interface NavBarProps {
 
 }
 
-const NavBar: FC<NavBarProps> = ({ }) => {
+const NavBar: FC<NavBarProps> = async ({ }) => {
+  const session = await getServerSession(authOptions)
 
   const DynamicSaveButton =
     dynamic(
@@ -23,7 +26,7 @@ const NavBar: FC<NavBarProps> = ({ }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-[72px] pr-4 flex items-center gap-6 bg-gray-700">
-      <SideBar>
+      <SideBar signedIn={!!session?.user}>
         <FileList />
       </SideBar>
       <div className="w-full h-full py-4 flex items-center justify-between">
