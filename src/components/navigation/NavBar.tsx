@@ -6,8 +6,6 @@ import FileDelete from '../documentControl/FileDelete'
 import { PlaceholderFileSave } from '../documentControl/FileSave'
 import FileList from './FileList'
 import dynamic from 'next/dynamic'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 
 interface NavBarProps {
 
