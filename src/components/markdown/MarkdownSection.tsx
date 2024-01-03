@@ -146,7 +146,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
         <Suspense fallback={<div>Loading...</div>}>
           <textarea
             value={localContent}
-            className="w-full h-full p-4 preview-markdown whitespace-pre-wrap resize-none focus:outline-none "
+            className="w-full h-full p-4 preview-markdown whitespace-pre-wrap resize-none focus:outline-none bg-transparent"
             onChange={updateMarkdown}
             onKeyDown={checkForShortcuts}
             onClick={handleClick}
