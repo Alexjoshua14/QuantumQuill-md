@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Switch } from './ui/switch'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
 
 interface ThemeToggleProps {
 
@@ -18,10 +19,18 @@ interface ThemeToggleProps {
  * @returns 
  */
 const ThemeToggle: FC<ThemeToggleProps> = ({ }) => {
+  const { setTheme, theme } = useTheme()
+  const updateTheme = (darkMode: boolean) => {
+    setTheme(darkMode ? 'dark' : 'light')
+  }
+
   return (
     <div className="flex gap-2 w-fit py-4 px-6">
       <Image src="/assets/icon-dark-mode.svg" alt="Dark Mode" width={15} height={15} className="object-contain" />
-      <Switch id="theme-toggle" />
+      <Switch id="theme-toggle"
+        checked={theme === 'dark'}
+        onCheckedChange={(checked) => updateTheme(checked)}
+      />
       <Image src="/assets/icon-light-mode.svg" alt="Light Mode" width={15} height={15} className="object-contain" />
     </div>
   )
