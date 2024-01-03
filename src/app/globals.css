@@ -159,7 +159,7 @@
   }
 
   .app-heading-secondary {
-    @apply text-sm tracking-[2px] font-sans font-medium text-gray-400;
+    @apply text-sm tracking-[2px] font-sans font-medium text-secondary;
   }
 
   .app-body-secondary {
