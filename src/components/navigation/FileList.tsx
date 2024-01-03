@@ -21,7 +21,7 @@ const FileList: FC<FileListProps> = ({ }) => {
           <li key={`${file.name}-${file.createdAt}`}>
             <button
               className="group ">
-              <FileTitle docName={file.name} variant='secondary' />
+              <FileTitle docName={file.name} content={file.content} variant='secondary' />
             </button>
           </li>
         ))

@@ -4,7 +4,14 @@ import { useAppDispatch, useAppSelector } from './reduxHooks';
 import { setContent, setFilename, setMarkdown, setShouldSave, deleteFile as deleteFile_Redux } from '@/redux/slices/markdownSlice';
 import { useSession } from 'next-auth/react';
 
-export const useFile = () => {
+interface File {
+  updatedAt: string,
+  filename: string,
+  content: string
+}
+
+
+export const useFile = (docName?: string) => {
   // Check if user is logged in, if so their files should be synced with the database
   const { status } = useSession()
 
@@ -21,26 +28,36 @@ export const useFile = () => {
 
   // TODO: Actually save the file
   const saveFile = useCallback(({filename, content}: {filename?: string, content?: string}) => {
-    if (filename && content) {
-      dispatch(setMarkdown({ filename, content }))
-    } else if (content) {
-      dispatch(setContent(content))
-    } else if (filename) {
-      dispatch(setFilename(filename))
-    }
+  // Can update logic in here to only save content if docName === filename
+    if (docName === filename) {
+      if (filename && content) {
+        dispatch(setMarkdown({ filename, content }))
+      } else if (content) {
+        dispatch(setContent(content))
+      } else if (filename) {
+        dispatch(setFilename(filename))
+      }
 
-    dispatch(setShouldSave(false))
+      dispatch(setShouldSave(false))
+    }
 
     // If user is logged in, save file to database
     if (status === 'authenticated') {
       console.log("Would be saving file to database")
     }
 
-  }, [dispatch, status])
+  }, [dispatch, status, docName])
 
-  const updateFileTitle = useCallback(({filename}: {filename: string}) => {
-    dispatch(setFilename(filename))
-  }, [dispatch])
+  const updateFileTitle = useCallback(({updatedFilename}: {updatedFilename: string}) => {
+    if (docName === filename)
+      dispatch(setFilename(updatedFilename))
+
+    // If user is logged in, update file title in database
+    if (status === 'authenticated') {
+      console.log("Would be updating file title in database")
+    }
+    
+  }, [dispatch, docName, filename,  status])
 
   // TODO: Actually delete the file
   const deleteFile = useCallback(() => {
@@ -60,18 +77,16 @@ export const useFile = () => {
 
   }, [status])
 
-  const openFile = useCallback((filename: string) => {
+  const openFile = useCallback((filename: string, text?: string) => {
     // If user is logged in, fetch file from database
     if (status === 'authenticated') {
       console.log("Would be fetching file from database")
     }
 
-    // Temporary mock functionality until database connected
-    const data = require(`@/data/data.json`)
+    console.log(`Opening file: ${filename} with content ${text}`)
+    let stampedText = text ? `# ${text}` : ``
 
-    const content = "PUT CONTENT HERE"
-
-    dispatch(setMarkdown({ filename, content}))
+    dispatch(setMarkdown({ filename, content: stampedText}))
   }, [dispatch, status])
 
 
