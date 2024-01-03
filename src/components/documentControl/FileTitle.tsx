@@ -6,6 +6,7 @@ import { Input } from '../ui/input'
 import { cn } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { useFile } from '@/hooks/useFile'
+import { useSession } from 'next-auth/react'
 
 interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
   docName: string
@@ -22,6 +23,7 @@ interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
  * @returns 
  */
 const FileTitle: FC<FileTitleProps> = ({ className, docName, variant, createdAt, ...props }) => {
+  const { status } = useSession()
   const { filename, saveFile } = useFile()
 
   const [documentName, setDocumentName] = useState<string>(filename)
@@ -40,7 +42,14 @@ const FileTitle: FC<FileTitleProps> = ({ className, docName, variant, createdAt,
   }, [isEditing, filename])
 
   const syncDocumentName = () => {
-    saveFile({ filename: documentName })
+    if (variant === 'main')
+      saveFile({ filename: documentName })
+
+    // Update database
+    if (status === 'authenticated') {
+      console.log('Would be updating file in database here')
+    }
+
     setIsEditing(false)
   }
 
