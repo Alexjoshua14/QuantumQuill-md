@@ -21,7 +21,7 @@ interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
  * @param param0 
  * @returns 
  */
-const FileTitle: FC<FileTitleProps> = ({ className, variant, createdAt, ...props }) => {
+const FileTitle: FC<FileTitleProps> = ({ className, docName, variant, createdAt, ...props }) => {
   const { filename, saveFile } = useFile()
 
   const [documentName, setDocumentName] = useState<string>(filename)
