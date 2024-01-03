@@ -1,12 +1,12 @@
 'use client'
 
 import { FC } from 'react'
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetTitle, SheetTrigger } from '../ui/sheet'
+import { Sheet, SheetContent, SheetFooter, SheetTitle, SheetTrigger } from '../ui/sheet'
 import Image from 'next/image'
 import Button from '../Button'
 import ThemeToggle from '../ThemeToggle'
 import { SignInButton, SignOutButton } from '../oauth/OAuthButtons'
-import { getServerSession } from 'next-auth'
+import { useSession } from 'next-auth/react'
 
 interface SideBarProps {
   signedIn?: boolean
@@ -14,6 +14,7 @@ interface SideBarProps {
 }
 
 const SideBar: FC<SideBarProps> = ({ signedIn, children }) => {
+  const { status } = useSession()
 
   return (
     <Sheet>
@@ -27,13 +28,13 @@ const SideBar: FC<SideBarProps> = ({ signedIn, children }) => {
 
         <div className="h-full pb-10 flex flex-col justify-between">
           <div className="grid grid-flow-row gap-4">
-            {!signedIn && <SignInButton />}
+            {status === 'unauthenticated' && <SignInButton />}
             <Button className="w-full grid place-content-center" text="+ New Document" />
             {children}
 
           </div>
           <div className="w-full flex">
-            {signedIn && <SignOutButton className='w-full' />}
+            {status === 'authenticated' && <SignOutButton className='w-full' />}
           </div>
         </div>
         <SheetFooter className="absolute bottom-1 left-0">

@@ -13,8 +13,7 @@ interface NavBarProps {
 
 }
 
-const NavBar: FC<NavBarProps> = async ({ }) => {
-  const session = await getServerSession(authOptions)
+const NavBar: FC<NavBarProps> = ({ }) => {
 
   const DynamicSaveButton =
     dynamic(
@@ -26,7 +25,7 @@ const NavBar: FC<NavBarProps> = async ({ }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-[72px] pr-4 flex items-center gap-6 bg-gray-700">
-      <SideBar signedIn={!!session?.user}>
+      <SideBar>
         <FileList />
       </SideBar>
       <div className="w-full h-full py-4 flex items-center justify-between">
