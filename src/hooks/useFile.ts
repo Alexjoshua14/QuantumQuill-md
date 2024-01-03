@@ -1,7 +1,7 @@
 
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from './reduxHooks';
-import { setContent, setFilename, setMarkdown, setShouldSave } from '@/redux/slices/markdownSlice';
+import { setContent, setFilename, setMarkdown, setShouldSave, deleteFile as deleteFile_Redux } from '@/redux/slices/markdownSlice';
 
 export const useFile = () => {
   const filename = useAppSelector((state) => state.markdown.filename);
@@ -30,7 +30,7 @@ export const useFile = () => {
 
   // TODO: Actually delete the file
   const deleteFile = useCallback(() => {
-    dispatch(setMarkdown({ filename: '', content: '' }))
+    dispatch(deleteFile_Redux())
   }, [dispatch])
 
 
