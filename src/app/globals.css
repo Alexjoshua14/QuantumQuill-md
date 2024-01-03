@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  /* :root { */
+  .light {
     --background: 0 0% 100%;
     --background-secondary: 0 0% 96%;
     --foreground: 216 9% 23%;
@@ -37,7 +38,8 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  /* .dark { */
+  :root {
     --background: 225 9% 9%;
     --background-secondary: 220 7% 18%;
     --foreground: 0 0% 100%;
@@ -157,7 +159,7 @@
   }
 
   .app-heading-secondary {
-    @apply text-sm tracking-[2px] font-sans font-medium text-gray-400;
+    @apply text-sm tracking-[2px] font-sans font-medium text-secondary;
   }
 
   .app-body-secondary {
