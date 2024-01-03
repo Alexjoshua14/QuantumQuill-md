@@ -7,6 +7,7 @@ import Button from '../Button'
 import ThemeToggle from '../ThemeToggle'
 import { SignInButton, SignOutButton } from '../oauth/OAuthButtons'
 import { useSession } from 'next-auth/react'
+import FileNew from '../documentControl/FileNew'
 
 interface SideBarProps {
   signedIn?: boolean
@@ -29,7 +30,7 @@ const SideBar: FC<SideBarProps> = ({ signedIn, children }) => {
         <div className="h-full pb-10 flex flex-col justify-between">
           <div className="grid grid-flow-row gap-4">
             {status === 'unauthenticated' && <SignInButton />}
-            <Button className="w-full grid place-content-center" text="+ New Document" />
+            <FileNew />
             {children}
 
           </div>
