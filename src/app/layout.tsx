@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Roboto, Roboto_Slab, Roboto_Mono } from 'next/font/google'
 import './globals.css'
 import NavBar from '@/components/navigation/NavBar'
-import ReduxProvider from '@/redux/ReduxProvider'
+import Providers from '@/components/Providers'
 
 const roboto =
   Roboto({
@@ -40,10 +40,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable} ${robotoMono.variable} ${robotoSlab.variable}`}>
       <body>
-        <ReduxProvider>
+        <Providers>
           <NavBar />
           {children}
-        </ReduxProvider>
+        </Providers>
       </body>
     </html>
   )
