@@ -44,8 +44,6 @@ const FileTitle: FC<FileTitleProps> = ({ className, docName, content, variant, c
   const syncDocumentName = () => {
     if (variant === 'main')
       saveFile({ filename: documentName })
-    else
-      openFile(documentName, content)
 
     // Update database
     if (status === 'authenticated') {
@@ -88,7 +86,7 @@ const FileTitle: FC<FileTitleProps> = ({ className, docName, content, variant, c
   return (
     <div
       className={cn("h-full flex items-center gap-4 w-fit", className)} {...props}
-      onClick={variant === 'secondary' ? () => openFile(docName) : undefined}
+      onClick={variant === 'secondary' ? () => openFile(docName, content) : undefined}
     >
       <Image
         src="/assets/icon-document.svg"

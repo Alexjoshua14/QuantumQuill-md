@@ -83,10 +83,7 @@ export const useFile = (docName?: string) => {
       console.log("Would be fetching file from database")
     }
 
-    console.log(`Opening file: ${filename} with content ${text}`)
-    let stampedText = text ? `# ${text}` : ``
-
-    dispatch(setMarkdown({ filename, content: stampedText}))
+    dispatch(setMarkdown({ filename, content: text}))
   }, [dispatch, status])
 
 
