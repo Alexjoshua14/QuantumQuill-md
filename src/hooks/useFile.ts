@@ -87,6 +87,6 @@ export const useFile = (docName?: string) => {
   }, [dispatch, status])
 
 
-  return { filename, content, shouldSave, initiateFileSave, saveFile, deleteFile, fetchFiles, openFile };
+  return { filename, content, shouldSave, initiateFileSave, saveFile, updateFileTitle, deleteFile, fetchFiles, openFile };
   
 }

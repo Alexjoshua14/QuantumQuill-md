@@ -24,7 +24,7 @@ interface FileTitleProps extends HTMLAttributes<HTMLDivElement> {
  */
 const FileTitle: FC<FileTitleProps> = ({ className, docName, content, variant, createdAt, ...props }) => {
   const { status } = useSession()
-  const { filename, saveFile, openFile } = useFile(docName)
+  const { filename, saveFile, updateFileTitle, openFile } = useFile(docName)
 
   const [documentName, setDocumentName] = useState<string>(docName)
   const [fileDate, setFileDate] = useState<string>('01 April 2022')
@@ -35,22 +35,22 @@ const FileTitle: FC<FileTitleProps> = ({ className, docName, content, variant, c
     createdAt && setFileDate(createdAt)
   }, [createdAt])
 
-  // useEffect(() => {
-  //   if (isEditing) return
+  useEffect(() => {
+    if (variant === 'main') {
+      if (isEditing) return
 
-  //   // setDocumentName(filename)
-  // }, [isEditing, filename])
+      setDocumentName(filename)
+    }
+  }, [isEditing, filename, variant])
 
   const syncDocumentName = () => {
     if (variant === 'main')
-      saveFile({ filename: documentName })
+      updateFileTitle({ updatedFilename: documentName })
 
     // Update database
     if (status === 'authenticated') {
       console.log('Would be updating file in database here')
     }
-
-    setIsEditing(false)
   }
 
   const handleDocNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +63,7 @@ const FileTitle: FC<FileTitleProps> = ({ className, docName, content, variant, c
       if (!inputRef.current) return
       syncDocumentName()
       inputRef.current.selectionStart = 0
+      setIsEditing(false)
     } catch (err) {
       console.error(err)
     }
