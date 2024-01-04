@@ -14,6 +14,9 @@ const COMMANDS: Map<string, string> = new Map([
   ['heading5', '##### '],
   ['heading6', '###### '],
   ['quote', '> '],
+  ['unorderedList', '- '],
+  ['orderedList', '1. '],
+  ['link', '[text](url)'],
 ])
 
 /**
