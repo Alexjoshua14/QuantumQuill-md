@@ -32,8 +32,9 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
   const [localContent, setLocalContent] = useState<string>('')
   const { fullScreen } = useImperativePanelHandle(parentPanelRef ?? null)
 
+
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const { checkForShortcuts, handleClick } = useCommand(textareaRef)
+  const { checkForShortcuts, handleClick } = useCommand(textareaRef, setLocalContent)
 
   useEffect(() => {
     setLocalContent(content)
@@ -50,6 +51,9 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
     setLocalContent(e.target.value)
     // console.log("Local content updated")
   }
+
+
+
 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
