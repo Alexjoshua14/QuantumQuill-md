@@ -1,11 +1,23 @@
 import { handleCommand } from "@/lib/command/handleCommand"
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { COMMANDS } from "@/lib/command/commands"
 
 
 export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, setLocalContent: Dispatch<SetStateAction<string>>) => {
   const [commandQuery, setCommandQuery] = useState<string>('')
   const [commandActive, setCommandActive] = useState<boolean>(false)
   const [commandIndex, setCommandIndex] = useState<number>(0)
+
+  // Handles list of plausible commands
+  const allCommands = Array.from(COMMANDS.keys())
+  const [commandList, setCommandList] = useState<string[]>(allCommands)
+
+  const updateCommandList = () => {
+    const filteredCommands = allCommands.filter(command => command.startsWith(commandQuery))
+    // setCommandList(filteredCommands)
+    console.log("Filtered commands: ", filteredCommands)
+  }
+
 
   /**
    * Resets command query and index
@@ -14,6 +26,7 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
     setCommandActive(false)
     setCommandQuery('')
     setCommandIndex(0)
+    setCommandList(allCommands)
   }
 
   /**
@@ -98,7 +111,7 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
    * @param e - Keyboard event
    */
   const handleCharacter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (commandQuery.length > commandIndex)
+    if (commandQuery.length > commandIndex) 
       setCommandQuery(prev => prev.slice(0, commandIndex) + e.key + prev.slice(commandIndex))
     else
       setCommandQuery(prev => prev + e.key)
@@ -123,6 +136,7 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
 
     if (/^[a-zA-Z0-9]$/.test(e.key)) {
       handleCharacter(e) 
+      updateCommandList()
     } else {
       switch (e.key) {
         case 'Enter':
@@ -133,6 +147,7 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
           break
         case 'Backspace':
           handleBackspace(e)
+          updateCommandList()
           break
         case 'ArrowUp':
           handleArrowUp(e)
@@ -225,7 +240,8 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
     setCommandActive,
     setCommandIndex,
     checkForShortcuts,
-    handleClick
+    handleClick,
+    commandList
   }
 
 }
