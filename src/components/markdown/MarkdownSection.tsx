@@ -35,7 +35,9 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [cursor, setCursor] = useState({ start: 0, end: 0 })
-  const { checkForShortcuts, handleClick } = useCommand(textareaRef, setLocalContent)
+  const { checkForShortcuts, handleClick, commandActive } = useCommand(textareaRef, setLocalContent)
+
+  const [commandListPosition, setCommandListPosition] = useState({ x: 0, y: 0 })
 
   /**
    * Set localContent to content on content change
@@ -64,6 +66,12 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
 
   }, [textareaRef, localContent, cursor])
 
+  // useEffect(() => {
+  //   if (commandActive) {
+  //     getCaretCoordinates()
+  //   }
+  // }, [commandActive])
+
   const updateMarkdown = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCursor({ start: e.currentTarget.selectionStart, end: e.currentTarget.selectionEnd })
     setLocalContent(e.target.value)
@@ -83,7 +91,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
       <TitleBar title="Markdown" onDoubleClick={fullScreen} toggleShowPreview={toggleShowPreview} />
-      <div className="h-full max-w-full p-2">
+      <div className="relative h-full max-w-full p-2">
         <Suspense fallback={<div>Loading...</div>}>
           <textarea
             value={localContent}
@@ -93,6 +101,14 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
             onClick={handleClick}
             ref={textareaRef}
           />
+          {/* <Suspense>
+            <div
+              className={`absolute w-40 h-14 p-4 bg-orange-300 ${commandActive ? 'block' : 'hidden'}`}
+              style={{ left: commandListPosition.x, top: commandListPosition.y }}
+            >
+
+            </div>
+          </Suspense> */}
         </Suspense>
       </div>
     </section>
