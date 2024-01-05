@@ -13,5 +13,10 @@
     "createdAt": "04-01-2022",
     "name": "secret-file.md",
     "content": "Shh.. It's a secret!"
+  },
+  {
+    "createdAt": "04-01-2022",
+    "name": "shortcuts.md",
+    "content": "# Markdown Editor Shortcut Commands\n\n---\n---\n\n## Activating Shortcut\n\nType '`/`' followed by desired command and then hit `Enter`\n\n---\n---\n\n\n## Text Formatting\n\n---\n\n### Bold:\n\n    Command: `/bold`  \n\n    Output: `**`  \n\nExample: \n**Bold Text**\n\n---\n\n### Italic:\n\n    Command: `/italic`  \n\n    Output: `_`  \n\nExample: \n_Italic Text_\n\n---\n\n### Underline:\n\n    Command: `/underline`  \n\n    Output: `__`  \n\nExample: \n__Underlined Text__\n\n---\n\n### Strikethrough:\n\n    Command: `/strikethrough`  \n\n    Output: `~~`  \n\nExample: \n\n~~Strikethrough Text~~\n\n---\n---\n\n## Headings\n\n### Heading 1:\n\n    Command: `/h1` or `/heading1`\n\n    Output: `# `  \n\nExample: \n\n# Heading 1\n\n---\n\n### Heading 2:\n\n    Command: `/h2` or `/heading2`\n\n    Output: `## `  \n\nExample: \n\n## Heading 2\n\n---\n\n### Heading 3:\n\n    Command: `/h3` or `/heading3`\n\n    Output: `### `  \n\nExample: \n\n### Heading 3\n\n---\n\n### Heading 4:\n\n    Command: `/h4` or `/heading4`\n\n    Output: `#### `  \n\nExample: \n\n#### Heading 4\n\n---\n\n### Heading 5:\n\n    Command: `/h5` or `/heading5`\n\n    Output: `##### `  \nExample: \n##### Heading 5\n\n---\n\n---\n\n**Heading 6:**\n\n    Command: `/h6` or `/heading6`\n\n    Output: `###### `  \n\nExample: \n###### Heading 6\n\n\n---\n___\n## Horizontal Rule\n\n### Horizontal Rule:\n\n    Command: `/hr`  \n\n    Output: `---`  \n---\n--- \n## Blockquote\n\n### Blockquote:\n\n    Command: `/quote`  \n\n    Output: `> `  \nExample: \n> This is a blockquote.\n\n---\n---\n## Lists\n\n### Unordered List:\n\n    Command: `/ul`  \n\n    Output: `- ` \n\nExample: \n\n- Item 1\n\n---\n\n### Ordered List:\n\n    Command: `/ol`  \n\n    Output: `1. `  \n\nExample: \n\n1. Item 1\n\n---\n"
   }
 ]

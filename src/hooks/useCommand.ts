@@ -43,6 +43,14 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
     return cursorPosition
   }
 
+  /**
+   * Handles space during command query
+   */
+  const handleSpace = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    console.log("Command canceled")
+    resetCommand()
+  }
+
   const handleEscape = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
     console.log("Command canceled")
@@ -141,6 +149,9 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
       switch (e.key) {
         case 'Enter':
           cursorPosition = handleEnter(e)
+          break
+        case ' ':
+          handleSpace(e)
           break
         case 'Escape':
           handleEscape(e)
