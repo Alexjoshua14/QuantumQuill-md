@@ -1,36 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-
-
-const COMMANDS: Map<string, string> = new Map([
-  ['bold', '**'],
-  ['italic', '_'],
-  ['underline', '__'],
-  ['strikethrough', '~~'],
-  ['code', '```'],
-  ['heading1', '# '],
-  ['h1', '# '],
-  ['heading2', '## '],
-  ['h2', '## '],
-  ['heading3', '### '],
-  ['h3', '### '],
-  ['heading4', '#### '],
-  ['h4', '#### '],
-  ['heading5', '##### '],
-  ['h5', '##### '],
-  ['heading6', '###### '],
-  ['h6', '###### '],
-  ['horizontalRule', '---'],
-  ['hr', '---'],
-  ['quote', '> '],
-  ['unorderedList', '- '],
-  ['ul', '- '],
-  ['orderedList', '1. '],
-  ['ol', '1. '],
-  ['link', '[text](url)'],
-  ['image', '![alt](url)'],
-  ['table', '| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |'],
-  ['codeInline', '`'],
-])
+import { COMMANDS } from "./commands"
 
 /**
  * Handles the command and executes it
