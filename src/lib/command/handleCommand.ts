@@ -33,7 +33,7 @@ export const handleCommand = (command: string, textareaRef: React.RefObject<HTML
   if (selectedCommand === undefined) {
     console.log("Command not found")
   } else {
-    insertCommand(textareaRef, setLocalContent, selectedCommand)
+    return insertCommand(textareaRef, setLocalContent, selectedCommand)
   }
 
 }
@@ -55,10 +55,11 @@ const getCommand = (command: string) => {
  * @param textareaRef 
  * @param setLocalContent 
  * @param command 
- * @returns 
+ * @returns - Cursor position if command was entered, otherwise null
  */
 const insertCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, setLocalContent: Dispatch<SetStateAction<string>>, command: string) => {
-  if (!textareaRef.current) return
+  let newCursorPosition = null
+  if (!textareaRef.current) return newCursorPosition
 
   console.log("Attempting to clear command query")
   console.log("Current selection start " + textareaRef.current.selectionStart)
@@ -77,5 +78,6 @@ const insertCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, setLoc
   // textareaRef.current.selectionStart = slashPosition
   setLocalContent(updatedValue)
 
-  return slashPosition
+  newCursorPosition = slashPosition + command.length
+  return {start: newCursorPosition, end: newCursorPosition}
 }

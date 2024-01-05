@@ -16,11 +16,18 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
     setCommandIndex(0)
   }
 
+  /**
+   * Handles enter during command query
+   * 
+   * @param e - Keyboard event
+   * @returns - Cursor position if command was entered, otherwise undefined
+   */
   const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
-    handleCommand(commandQuery, textareaRef, setLocalContent)
+    const cursorPosition = handleCommand(commandQuery, textareaRef, setLocalContent)
     console.log("Command entered: ", commandQuery)
     resetCommand()
+    return cursorPosition
   }
 
   const handleEscape = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -29,6 +36,10 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
     resetCommand()
   }
 
+  /**
+   * Handles backspace during command query
+   * If command query is empty, then we cancel and reset the command 
+   */
   const handleBackspace = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (commandQuery.length === 0) {
       resetCommand()
@@ -43,11 +54,19 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
     setCommandIndex(prev => prev - 1)
   }
 
+  /**
+   * Transforms arrow up into navigation of command menu
+   *  
+   */
   const handleArrowUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
     console.log("Up arrow pressed")
   }
 
+  /**
+   * Transforms arrow down into navigation of command menu
+   *  
+   */
   const handleArrowDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
     console.log("Down arrow pressed")
@@ -73,6 +92,11 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
     }
   }
 
+  /**
+   * Handles character input during command query
+   * 
+   * @param e - Keyboard event
+   */
   const handleCharacter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (commandQuery.length > commandIndex)
       setCommandQuery(prev => prev.slice(0, commandIndex) + e.key + prev.slice(commandIndex))
@@ -92,14 +116,17 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
    * Handles all keyboard input during command query
    * 
    * @param e - Keyboard event
+   * @returns - Cursor position if command was entered, otherwise undefined
    */
   const handleKeyInput = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    let cursorPosition = null
+
     if (/^[a-zA-Z0-9]$/.test(e.key)) {
       handleCharacter(e) 
     } else {
       switch (e.key) {
         case 'Enter':
-          handleEnter(e)
+          cursorPosition = handleEnter(e)
           break
         case 'Escape':
           handleEscape(e)
@@ -124,6 +151,8 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
           break
       }
     }
+
+    return cursorPosition
   }
 
   /**
@@ -154,6 +183,12 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
 
 
   /** 
+   * Handles shortcut commands
+   * if command is active, then we handle all keyboard input
+   * Otherwise, we check if the user is trying to activate a command
+   * 
+   * @returns - Cursor position if command was entered, otherwise undefined
+   * 
    * TODO: Move this logic to separate file and clean it up! 
    * TODO: Handle user deleting multiple characters using shift/option/etc + arrow keys
    * TODO: Handle user clicking on textarea to move cursor, this should just reset the command
@@ -163,7 +198,7 @@ export const useCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, se
    */
   const checkForShortcuts = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (commandActive) {
-      handleKeyInput(e)
+      return handleKeyInput(e)
     } else if (e.key === '/') {
       confirmShortcutKey()
     }

@@ -34,26 +34,51 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
 
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const [cursor, setCursor] = useState({ start: 0, end: 0 })
   const { checkForShortcuts, handleClick } = useCommand(textareaRef, setLocalContent)
 
+  /**
+   * Set localContent to content on content change
+   */
   useEffect(() => {
     setLocalContent(content)
 
   }, [content])
 
+  /**
+   * Save file on localContent change
+   */
   useEffect(() => {
     if (shouldSave) {
       saveFile({ content: localContent })
     }
   }, [shouldSave, localContent, saveFile])
 
+  /**
+   * Update cursor position on localContent change
+   * Mainly used to ensure cursor is positioned properly after
+   * a shortcut is used
+   */
+  useEffect(() => {
+    textareaRef.current?.setSelectionRange(cursor.start, cursor.end)
+
+  }, [textareaRef, localContent, cursor])
+
   const updateMarkdown = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCursor({ start: e.currentTarget.selectionStart, end: e.currentTarget.selectionEnd })
     setLocalContent(e.target.value)
     // console.log("Local content updated")
   }
 
-
-
+  /**
+   * Wrapper function to check for shortcuts and update cursor position
+   */
+  const shortcutWrapper = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const cursorPosition = checkForShortcuts(e)
+    if (cursorPosition) {
+      setCursor(cursorPosition)
+    }
+  }
 
   return (
     <section className="h-full overflow-y-auto flex flex-col">
@@ -64,7 +89,7 @@ const MarkdownSection: FC<MarkdownProps> = ({ parentPanelRef, toggleShowPreview 
             value={localContent}
             className="w-full h-full p-4 preview-markdown whitespace-pre-wrap resize-none focus:outline-none bg-transparent"
             onChange={updateMarkdown}
-            onKeyDown={checkForShortcuts}
+            onKeyDown={shortcutWrapper}
             onClick={handleClick}
             ref={textareaRef}
           />
