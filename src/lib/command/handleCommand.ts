@@ -8,15 +8,28 @@ const COMMANDS: Map<string, string> = new Map([
   ['strikethrough', '~~'],
   ['code', '```'],
   ['heading1', '# '],
+  ['h1', '# '],
   ['heading2', '## '],
+  ['h2', '## '],
   ['heading3', '### '],
+  ['h3', '### '],
   ['heading4', '#### '],
+  ['h4', '#### '],
   ['heading5', '##### '],
+  ['h5', '##### '],
   ['heading6', '###### '],
+  ['h6', '###### '],
+  ['horizontalRule', '---'],
+  ['hr', '---'],
   ['quote', '> '],
   ['unorderedList', '- '],
+  ['ul', '- '],
   ['orderedList', '1. '],
+  ['ol', '1. '],
   ['link', '[text](url)'],
+  ['image', '![alt](url)'],
+  ['table', '| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |'],
+  ['codeInline', '`'],
 ])
 
 /**
@@ -78,6 +91,18 @@ const insertCommand = (textareaRef: React.RefObject<HTMLTextAreaElement>, setLoc
   // textareaRef.current.selectionStart = slashPosition
   setLocalContent(updatedValue)
 
+  /* Determine new cursor position/selection */
+
+  // If command is link, then we want to select the first field
+  // TODO: Enable next press of tab to select second field
+  if (command === COMMANDS.get('link')) {
+    return {start: slashPosition + 1, end: slashPosition + 5}
+  } else if (command === COMMANDS.get('image')) {
+    return {start: slashPosition + 2, end: slashPosition + 5}
+  }
+    
   newCursorPosition = slashPosition + command.length
+  
+
   return {start: newCursorPosition, end: newCursorPosition}
 }
